@@ -1,0 +1,415 @@
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type UserProfile = record {name: text;};
+type PoccWorker = 
+ record {
+   bondAmount: nat;
+   bondType: BondType;
+   hardwareAttestation: text;
+   id: text;
+   "principal": principal;
+   registrationTimestamp: int;
+   reputationScore: float64;
+   status: text;
+ };
+type PoccTask = 
+ record {
+   createdAt: int;
+   difficulty: nat;
+   id: text;
+   payload: text;
+   seed: text;
+   status: text;
+ };
+type PoccSlashing = 
+ record {
+   id: text;
+   penaltyAmount: nat;
+   reason: text;
+   status: text;
+   timestamp: int;
+   workerId: text;
+ };
+type PoccReward = 
+ record {
+   cwu: float64;
+   id: text;
+   nrnReward: nat;
+   periodId: text;
+   status: text;
+   timestamp: int;
+   workerId: text;
+ };
+type PoccProof = 
+ record {
+   cwu: float64;
+   id: text;
+   proofData: text;
+   status: text;
+   taskId: text;
+   timestamp: int;
+   workerId: text;
+ };
+type PoccPool = 
+ record {
+   createdAt: int;
+   creator: principal;
+   effectiveShareCap: float64;
+   id: text;
+   name: text;
+   status: text;
+   totalBonded: nat;
+ };
+type PoccEpoch = 
+ record {
+   endTimestamp: int;
+   id: text;
+   periodId: text;
+   startTimestamp: int;
+   status: text;
+ };
+type PoccCwuStats = 
+ record {
+   id: text;
+   periodId: text;
+   timestamp: int;
+   totalCwu: float64;
+   workerCount: nat;
+ };
+type NeumannPeriod = 
+ record {
+   cwuTarget: nat;
+   endTimestamp: int;
+   id: text;
+   name: text;
+   nrnAllocation: nat;
+   startTimestamp: int;
+   status: text;
+ };
+type GuideVersion = 
+ record {
+   createdAt: int;
+   id: text;
+   status: text;
+   updatedAt: int;
+   version: nat;
+ };
+type GuideTooltip = 
+ record {
+   content: text;
+   createdAt: int;
+   id: text;
+   position: text;
+   status: text;
+   stepId: text;
+   updatedAt: int;
+ };
+type GuideStep = 
+ record {
+   accessibility:
+    record {
+      contrast: bool;
+      keyboardNavigation: bool;
+      screenReader: bool;
+    };
+   createdAt: int;
+   description: text;
+   highlightSelector: text;
+   id: text;
+   mobile: record {
+             optimized: bool;
+             responsive: bool;
+           };
+   navigation:
+    record {
+      exit: bool;
+      next: opt text;
+      previous: opt text;
+      skip: bool;
+    };
+   order: nat;
+   progress: record {
+               currentStep: nat;
+               totalSteps: nat;
+             };
+   section: text;
+   status: record {
+             active: bool;
+             completed: bool;
+             skipped: bool;
+           };
+   title: text;
+   updatedAt: int;
+   version: nat;
+   visual:
+    record {
+      animation: bool;
+      arrow: bool;
+      border: bool;
+      spotlight: bool;
+      tooltip: bool;
+    };
+ };
+type GuideStatus = 
+ record {
+   completedSteps: vec text;
+   currentStep: text;
+   id: text;
+   skippedSteps: vec text;
+   startedAt: int;
+   status: text;
+   updatedAt: int;
+   user: principal;
+ };
+type GuideSection = 
+ record {
+   createdAt: int;
+   description: text;
+   id: text;
+   order: nat;
+   status: text;
+   steps: vec text;
+   title: text;
+   updatedAt: int;
+ };
+type GuideProgress = 
+ record {
+   completedSteps: vec text;
+   currentStep: text;
+   id: text;
+   skippedSteps: vec text;
+   startedAt: int;
+   status: text;
+   updatedAt: int;
+   user: principal;
+ };
+type GuidePreference = 
+ record {
+   createdAt: int;
+   detailLevel: nat;
+   id: text;
+   status: text;
+   theme: text;
+   tutorialSpeed: nat;
+   updatedAt: int;
+   user: principal;
+ };
+type GuideNavigation = 
+ record {
+   createdAt: int;
+   exit: bool;
+   id: text;
+   nextStep: opt text;
+   previous: opt text;
+   skip: bool;
+   status: text;
+   stepId: text;
+   updatedAt: int;
+ };
+type GuideHighlight = 
+ record {
+   createdAt: int;
+   highlightType: text;
+   id: text;
+   selector: text;
+   status: text;
+   stepId: text;
+   updatedAt: int;
+ };
+type GuideAchievement = 
+ record {
+   achievedAt: int;
+   achievement: text;
+   id: text;
+   status: text;
+   user: principal;
+ };
+type GovernanceVote = 
+ record {
+   id: text;
+   proposalId: text;
+   status: text;
+   timestamp: int;
+   vote: bool;
+   voter: principal;
+ };
+type GovernanceProposal = 
+ record {
+   createdAt: int;
+   creator: principal;
+   description: text;
+   feePaid: nat;
+   id: text;
+   phase: GovernancePhase;
+   status: text;
+   title: text;
+   updatedAt: int;
+ };
+type GovernancePhase = 
+ variant {
+   locking;
+   proposalSubmission;
+   voting;
+ };
+type GovernanceLock = 
+ record {
+   id: text;
+   lockTimestamp: int;
+   lockedAmount: nat;
+   locker: principal;
+   proposalId: text;
+   status: text;
+   unlockTimestamp: int;
+ };
+type FileReference = 
+ record {
+   hash: text;
+   path: text;
+ };
+type BondType = 
+ variant {
+   icp;
+   nrn;
+ };
+service : {
+  addGuideAchievement: (achievement: text) -> (text);
+  addGuideHighlight: (highlight: GuideHighlight) -> ();
+  addGuideNavigation: (navigation: GuideNavigation) -> ();
+  addGuideSection: (section: GuideSection) -> ();
+  addGuideStep: (step: GuideStep) -> ();
+  addGuideTooltip: (tooltip: GuideTooltip) -> ();
+  addGuideVersion: (version: nat) -> (text);
+  addNeumannPeriod: (period: NeumannPeriod) -> ();
+  addPoccCwuStats: (periodId: text, totalCwu: float64, workerCount: nat) ->
+   (text);
+  addPoccEpoch: (periodId: text, startTimestamp: int, endTimestamp: int) ->
+   (text);
+  addPoccSlashing: (workerId: text, reason: text, penaltyAmount: nat) ->
+   (text);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  castGovernanceVote: (proposalId: text, vote: bool) -> (text);
+  createGovernanceProposal: (title: text, description: text, feePaid: 
+   nat) -> (text);
+  createPoccPool: (name: text, totalBonded: nat, effectiveShareCap:
+   float64) -> (text);
+  createPoccTask: (payload: text, difficulty: nat, seed: text) -> (text);
+  distributePoccReward: (workerId: text, periodId: text, cwu: float64,
+   nrnReward: nat) -> (text);
+  dropFileReference: (path: text) -> ();
+  getCallerUserProfile: () -> (opt UserProfile) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getCreatorNernSupply: () -> (nat) query;
+  getCurrentNeumannPeriod: () -> (opt NeumannPeriod) query;
+  getDocumentationContent: () -> (text) query;
+  getDocumentationSections: () -> (vec record {
+                                         text;
+                                         text;
+                                       }) query;
+  getFileReference: (path: text) -> (FileReference) query;
+  getGovernanceLock: (lockId: text) -> (opt GovernanceLock) query;
+  getGovernanceLockingInstructions: () -> (text) query;
+  getGovernancePenaltyInstructions: () -> (text) query;
+  getGovernancePhaseDurations: () -> (int, int, int) query;
+  getGovernancePhaseStatus: () -> (text) query;
+  getGovernanceProofOfAttendanceInstructions: () -> (text) query;
+  getGovernanceProposal: (proposalId: text) -> (opt GovernanceProposal) query;
+  getGovernanceProposalStats: (proposalId: text) -> (nat, nat) query;
+  getGovernanceSystemOverview: () -> (text) query;
+  getGovernanceSystemStatus: () -> (text) query;
+  getGovernanceVote: (voteId: text) -> (opt GovernanceVote) query;
+  getGovernanceVotingInstructions: () -> (text) query;
+  getGuideAchievement: (achievementId: text) -> (opt GuideAchievement) query;
+  getGuideHighlight: (highlightId: text) -> (opt GuideHighlight) query;
+  getGuideNavigation: (navigationId: text) -> (opt GuideNavigation) query;
+  getGuidePreference: (preferenceId: text) -> (opt GuidePreference) query;
+  getGuideProgress: (progressId: text) -> (opt GuideProgress) query;
+  getGuideSection: (sectionId: text) -> (opt GuideSection) query;
+  getGuideStatus: (statusId: text) -> (opt GuideStatus) query;
+  getGuideStep: (stepId: text) -> (opt GuideStep) query;
+  getGuideTooltip: (tooltipId: text) -> (opt GuideTooltip) query;
+  getGuideVersion: (versionId: text) -> (opt GuideVersion) query;
+  getLockedNernStats: (proposalId: text) -> (nat) query;
+  getLockedNernStatus: (proposalId: text) -> (nat) query;
+  getMineableNernSupply: () -> (nat) query;
+  getNeumannPeriod: (periodId: text) -> (opt NeumannPeriod) query;
+  getNeumannPeriodBreakdown: () -> (vec record {
+                                          text;
+                                          nat;
+                                        }) query;
+  getPoccCwuFormula: () -> (text) query;
+  getPoccCwuStats: (statsId: text) -> (opt PoccCwuStats) query;
+  getPoccEpoch: (epochId: text) -> (opt PoccEpoch) query;
+  getPoccEpochDuration: () -> (int) query;
+  getPoccMinimumBond: () -> (nat) query;
+  getPoccNeumannPeriods: () -> (vec record {
+                                      text;
+                                      nat;
+                                      nat;
+                                    }) query;
+  getPoccPool: (poolId: text) -> (opt PoccPool) query;
+  getPoccProof: (proofId: text) -> (opt PoccProof) query;
+  getPoccReward: (rewardId: text) -> (opt PoccReward) query;
+  getPoccRewardFormula: () -> (text) query;
+  getPoccSlashing: (slashingId: text) -> (opt PoccSlashing) query;
+  getPoccTask: (taskId: text) -> (opt PoccTask) query;
+  getPoccWorker: (workerId: text) -> (opt PoccWorker) query;
+  getTotalNernSupply: () -> (nat) query;
+  getUnlockInstructions: () -> (text) query;
+  getUnlockStatus: () -> (text) query;
+  getUnlockSystemStatus: () -> (text) query;
+  getUnlockableNernInstructions: () -> (text) query;
+  getUnlockableNernLocks: () -> (vec GovernanceLock) query;
+  getUnlockableNernStats: () -> (nat, nat) query;
+  getUnlockableNernStatus: () -> (text) query;
+  getUnlockableNernSystemStatus: () -> (text) query;
+  getUserProfile: (user: principal) -> (opt UserProfile) query;
+  getWhitepaperContent: () -> (text) query;
+  initializeAccessControl: () -> ();
+  isCallerAdmin: () -> (bool) query;
+  listFileReferences: () -> (vec FileReference) query;
+  listGovernanceProposals: () -> (vec GovernanceProposal) query;
+  listGuideHighlights: () -> (vec GuideHighlight) query;
+  listGuideNavigation: () -> (vec GuideNavigation) query;
+  listGuideSections: () -> (vec GuideSection) query;
+  listGuideSteps: () -> (vec GuideStep) query;
+  listGuideTooltips: () -> (vec GuideTooltip) query;
+  listGuideVersions: () -> (vec GuideVersion) query;
+  listMyGovernanceLocks: () -> (vec GovernanceLock) query;
+  listMyGovernanceVotes: () -> (vec GovernanceVote) query;
+  listMyGuideAchievements: () -> (vec GuideAchievement) query;
+  listMyGuidePreferences: () -> (vec GuidePreference) query;
+  listMyGuideProgress: () -> (vec GuideProgress) query;
+  listMyGuideStatus: () -> (vec GuideStatus) query;
+  listNeumannPeriods: () -> (vec NeumannPeriod) query;
+  listPoccCwuStats: () -> (vec PoccCwuStats) query;
+  listPoccEpochs: () -> (vec PoccEpoch) query;
+  listPoccPools: () -> (vec PoccPool) query;
+  listPoccProofs: () -> (vec PoccProof) query;
+  listPoccRewards: () -> (vec PoccReward) query;
+  listPoccSlashings: () -> (vec PoccSlashing) query;
+  listPoccTasks: () -> (vec PoccTask) query;
+  listPoccWorkers: () -> (vec PoccWorker) query;
+  lockNernForGovernance: (proposalId: text, amount: nat) -> (text);
+  lockNernForProofOfAttendance: (amount: nat) -> (text);
+  registerFileReference: (path: text, hash: text) -> ();
+  registerPoccWorker: (bondType: BondType, bondAmount: nat,
+   hardwareAttestation: text) -> (text);
+  saveCallerUserProfile: (profile: UserProfile) -> ();
+  setGuidePreference: (tutorialSpeed: nat, detailLevel: nat, theme: text) ->
+   (text);
+  startGuideProgress: (currentStep: text) -> (text);
+  startGuideStatus: (currentStep: text) -> (text);
+  submitPoccProof: (workerId: text, taskId: text, proofData: text, cwu:
+   float64) -> (text);
+  unlockNern: (lockId: text) -> ();
+  updateGuidePreference: (preferenceId: text, tutorialSpeed: nat,
+   detailLevel: nat, theme: text) -> ();
+  updateGuideProgress: (progressId: text, currentStep: text, completedSteps:
+   vec text, skippedSteps: vec text, status: text) -> ();
+  updateGuideStatus: (statusId: text, currentStep: text, completedSteps:
+   vec text, skippedSteps: vec text, status: text) -> ();
+}

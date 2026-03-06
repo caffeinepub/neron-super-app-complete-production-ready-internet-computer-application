@@ -1,0 +1,319 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: oklch(100% 0 0);
+    --foreground: oklch(15% 0 0);
+    --card: oklch(100% 0 0);
+    --card-foreground: oklch(15% 0 0);
+    --popover: oklch(100% 0 0);
+    --popover-foreground: oklch(15% 0 0);
+    --primary: oklch(55% 0.25 264);
+    --primary-foreground: oklch(100% 0 0);
+    --secondary: oklch(96% 0 0);
+    --secondary-foreground: oklch(15% 0 0);
+    --muted: oklch(96% 0 0);
+    --muted-foreground: oklch(45% 0 0);
+    --accent: oklch(96% 0 0);
+    --accent-foreground: oklch(15% 0 0);
+    --destructive: oklch(55% 0.22 25);
+    --destructive-foreground: oklch(100% 0 0);
+    --border: oklch(90% 0 0);
+    --input: oklch(90% 0 0);
+    --ring: oklch(55% 0.25 264);
+    --radius: 0.5rem;
+    --ic-purple: oklch(55% 0.25 300);
+    --ic-blue: oklch(60% 0.20 240);
+    --ic-cyan: oklch(70% 0.15 200);
+    --success: oklch(60% 0.18 145);
+    --warning: oklch(70% 0.18 85);
+  }
+
+  .dark {
+    --background: oklch(15% 0 0);
+    --foreground: oklch(98% 0 0);
+    --card: oklch(15% 0 0);
+    --card-foreground: oklch(98% 0 0);
+    --popover: oklch(15% 0 0);
+    --popover-foreground: oklch(98% 0 0);
+    --primary: oklch(65% 0.25 264);
+    --primary-foreground: oklch(15% 0 0);
+    --secondary: oklch(20% 0 0);
+    --secondary-foreground: oklch(98% 0 0);
+    --muted: oklch(20% 0 0);
+    --muted-foreground: oklch(65% 0 0);
+    --accent: oklch(20% 0 0);
+    --accent-foreground: oklch(98% 0 0);
+    --destructive: oklch(50% 0.22 25);
+    --destructive-foreground: oklch(98% 0 0);
+    --border: oklch(25% 0 0);
+    --input: oklch(25% 0 0);
+    --ring: oklch(65% 0.25 264);
+    --ic-purple: oklch(65% 0.25 300);
+    --ic-blue: oklch(70% 0.20 240);
+    --ic-cyan: oklch(80% 0.15 200);
+    --success: oklch(70% 0.18 145);
+    --warning: oklch(80% 0.18 85);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html,
+  body {
+    @apply bg-background text-foreground overflow-x-hidden;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Neron Logo Variants with Enhanced Modern Styling */
+.neron-logo-header {
+  filter: drop-shadow(0 0 8px oklch(60% 0.20 240 / 0.4))
+          drop-shadow(0 0 16px oklch(55% 0.25 300 / 0.3));
+  transition: all 0.3s ease;
+}
+
+.neron-logo-header:hover {
+  filter: drop-shadow(0 0 12px oklch(60% 0.20 240 / 0.6))
+          drop-shadow(0 0 24px oklch(55% 0.25 300 / 0.5))
+          drop-shadow(0 0 32px oklch(70% 0.15 200 / 0.3));
+  transform: scale(1.05);
+}
+
+.neron-logo-subtle {
+  opacity: 0.85;
+  filter: drop-shadow(0 0 4px oklch(60% 0.20 240 / 0.2));
+  transition: all 0.3s ease;
+}
+
+.neron-logo-subtle:hover {
+  opacity: 1;
+  filter: drop-shadow(0 0 8px oklch(60% 0.20 240 / 0.4));
+}
+
+.neron-logo-glow {
+  filter: drop-shadow(0 0 16px oklch(60% 0.20 240 / 0.5))
+          drop-shadow(0 0 32px oklch(55% 0.25 300 / 0.4))
+          drop-shadow(0 0 48px oklch(70% 0.15 200 / 0.3));
+  animation: logo-pulse 3s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+.neron-logo-glow:hover {
+  filter: drop-shadow(0 0 20px oklch(60% 0.20 240 / 0.7))
+          drop-shadow(0 0 40px oklch(55% 0.25 300 / 0.6))
+          drop-shadow(0 0 60px oklch(70% 0.15 200 / 0.5));
+  transform: scale(1.08);
+}
+
+@keyframes logo-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 16px oklch(60% 0.20 240 / 0.5))
+            drop-shadow(0 0 32px oklch(55% 0.25 300 / 0.4))
+            drop-shadow(0 0 48px oklch(70% 0.15 200 / 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px oklch(60% 0.20 240 / 0.7))
+            drop-shadow(0 0 40px oklch(55% 0.25 300 / 0.6))
+            drop-shadow(0 0 60px oklch(70% 0.15 200 / 0.5));
+  }
+}
+
+/* Dark mode adjustments for logo glow effects */
+.dark .neron-logo-header {
+  filter: drop-shadow(0 0 10px oklch(70% 0.20 240 / 0.5))
+          drop-shadow(0 0 20px oklch(65% 0.25 300 / 0.4));
+}
+
+.dark .neron-logo-header:hover {
+  filter: drop-shadow(0 0 16px oklch(70% 0.20 240 / 0.7))
+          drop-shadow(0 0 32px oklch(65% 0.25 300 / 0.6))
+          drop-shadow(0 0 48px oklch(80% 0.15 200 / 0.4));
+}
+
+.dark .neron-logo-glow {
+  filter: drop-shadow(0 0 20px oklch(70% 0.20 240 / 0.6))
+          drop-shadow(0 0 40px oklch(65% 0.25 300 / 0.5))
+          drop-shadow(0 0 60px oklch(80% 0.15 200 / 0.4));
+}
+
+.dark .neron-logo-glow:hover {
+  filter: drop-shadow(0 0 24px oklch(70% 0.20 240 / 0.8))
+          drop-shadow(0 0 48px oklch(65% 0.25 300 / 0.7))
+          drop-shadow(0 0 72px oklch(80% 0.15 200 / 0.6));
+}
+
+/* Neron Gradient Text */
+.neron-gradient-text {
+  background: linear-gradient(
+    135deg,
+    oklch(55% 0.25 300),
+    oklch(60% 0.20 240),
+    oklch(70% 0.15 200)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 6s ease infinite;
+  background-size: 200% 200%;
+}
+
+.dark .neron-gradient-text {
+  background: linear-gradient(
+    135deg,
+    oklch(65% 0.25 300),
+    oklch(70% 0.20 240),
+    oklch(80% 0.15 200)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 6s ease infinite;
+  background-size: 200% 200%;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Page Transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 200ms ease-in, transform 200ms ease-in;
+}
+
+/* Smooth Hover Effects */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px oklch(55% 0.25 264 / 0.3);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: oklch(96% 0 0);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: oklch(20% 0 0);
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(70% 0 0);
+  border-radius: 5px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: oklch(40% 0 0);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(55% 0.25 264);
+}
+
+/* Enhanced Focus States */
+*:focus-visible {
+  outline: 2px solid oklch(55% 0.25 264);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Responsive Typography */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1025px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* Mobile Responsiveness Utilities */
+@media (max-width: 768px) {
+  .mobile-full-width {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+
+  .mobile-no-overflow {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  .mobile-touch-friendly {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Mobile Sidebar Optimization */
+  .mobile-sidebar {
+    max-height: calc(100dvh - 4rem);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .mobile-sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Dynamic Viewport Height Support */
+.min-h-screen-dynamic {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* iOS Touch Scrolling */
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
